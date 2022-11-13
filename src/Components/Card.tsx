@@ -9,7 +9,11 @@ const Card = ({id}: CardProps) => {
     const {response, error, isLoading} = useFetch(id);
     console.log(response);
 
-    return <div>{id}</div>
+    return (
+        <>
+            {isLoading ? <div>IS LOADING</div> : <div>{id}</div>}
+        </>
+    )
 }
 
 export default Card;
