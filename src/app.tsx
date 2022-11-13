@@ -1,5 +1,6 @@
 import { useParams } from 'react-router';
-import Card from './components/Card';
+import Page from './components/Page';
+import Card from './components/Weather';
 
 
 // returns index.html if no base url provided
@@ -10,7 +11,7 @@ const App = () => {
     const { id } = useParams<{ id: string }>();
 
     return (
-        <Card id={id} />
+        <Page id={id} />
     );
 };
 
