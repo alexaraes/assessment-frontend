@@ -1,7 +1,13 @@
 export interface Components {
     id: number;
     type: string;
-    options: [key: string];
+    options: {
+        lat?: number;
+        lon?: number;
+        text?: string;
+        value?: string;
+        variable?: string;
+    };
 }
 
 export interface Lists {
@@ -17,6 +23,6 @@ interface Variables {
 
 export interface PageType {
     lists: Lists[];
-    components: Components;
+    components: Components[];
     variables?: Variables // optional not used on page-one. Should be page specific.
 }

@@ -6,14 +6,14 @@ import { PageType } from "../types/types";
 // without specifying, forces base url to localhost:3000, not 3030
 const baseUrl = 'http://localhost:3030';
 
-export default function useFetch(id: string) {
+export default function useFetch(endPoint: string) {
    const [response, setResponse] = useState<PageType>();
    const [error, setError] = useState<string>("");
    const [isLoading, setIsLoading] = useState<boolean>(true);
 
    useEffect(() => {
       const fetchData = async () => {
-         axios.get(`${baseUrl}/page/${id}`)
+         axios.get(baseUrl + endPoint)
             .then(function (res) {
                 // handle success
                 console.log(res.data.data);
@@ -29,7 +29,7 @@ export default function useFetch(id: string) {
       };
 
       fetchData();
-   }, [id]);
+   }, [endPoint]);
 
    return { response, error, isLoading };
 }

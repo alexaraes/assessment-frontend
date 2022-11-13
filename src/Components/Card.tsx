@@ -6,8 +6,19 @@ interface CardProps {
 }
 
 const Card = ({id}: CardProps) => {
-    const {response, error, isLoading} = useFetch(id);
-    console.log(response);
+    const {response, error, isLoading} = useFetch(`/page/${id}`);
+    console.log(response?.components);
+    let lat, lon;
+    if(response && response.components) {
+        response.components.forEach((component) => {
+            if (component.type === 'weather') {
+                lat = component.options.lat;
+                lon = component.options.lon;
+            }
+        })
+    }
+
+    useFetch(`/integration/weather?lat=${lat}&lon=${lon}`);
 
     return (
         <>
