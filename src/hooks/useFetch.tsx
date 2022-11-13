@@ -35,7 +35,7 @@ export function usePageFetch(id: string) {
 }
 
 // wanted one function, but could not get typescript to be nice to the response type
-export function useWeatherFetch(lat: string, lon: string) {
+export function useWeatherFetch(lat: string | '', lon: string | '') {
    const [response, setResponse] = useState<WeatherType>();
    const [error, setError] = useState<string>("");
    const [isLoading, setIsLoading] = useState<boolean>(true);

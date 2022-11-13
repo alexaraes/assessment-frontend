@@ -9,6 +9,9 @@ interface WeatherProps {
 
 const Weather = ({lat, lon}: WeatherProps) => {
     const {response, error, isLoading} = useWeatherFetch(lat, lon);
+    const conditions = response?.conditionName;
+    const location = response?.location;
+    console.log(response);
     console.warn(response?.conditionName);
     return (
         <>
@@ -18,7 +21,7 @@ const Weather = ({lat, lon}: WeatherProps) => {
                 ) 
                 : (
                     <Container>
-                        <div></div>
+                        <div>{conditions} in {location}</div>
                     </Container>
                 )
             }

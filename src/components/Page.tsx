@@ -2,19 +2,31 @@ import { useEffect } from "react";
 import { usePageFetch } from "../hooks/useFetch";
 import { PageType } from "../types/types";
 import Weather from "./Weather";
+import Image from "./Image";
 
 interface PageProps {
     id: string;
 }
 
-
+// const getComponent = (componentType: string) => {
+//     switch (componentType) {
+//         case 'image':
+//             return Image;
+//         case 'weather':
+//             return Weather;
+//     }
+// }
 
 const getComponentType = (response?: PageType) => {
     const lists = response?.lists;
-    const components = lists?.map((list, i) => {
-        return list.components;
+    // just get the component ids from list with id 0
+    const componentIds = lists?.map((list, i) => {
+        if (list.id === 0) {
+            return list.components;
+        }
     })
-    return components;
+    // return only the first array of component ids, all others are undefined
+    return componentIds && componentIds[0];
 }
 
 const Page = ({id}: PageProps) => {
@@ -35,7 +47,10 @@ const Page = ({id}: PageProps) => {
     
 
     return (
-        <div></div>
+        <div>
+            <Image/>
+            {lat && lon && <Weather lat={lat} lon={lon} />}
+        </div>
     );
 }
 
