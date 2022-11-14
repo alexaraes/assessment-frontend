@@ -40,7 +40,7 @@ const getComponents = (response?: PageType) => {
 const Page = ({id}: PageProps) => {
     const {response} = usePageFetch(id);
     const [allComponents, setAllComponents] = useState<Component[]>();
-
+    console.warn(allComponents);
     useEffect(() => {
         const filteredComponents = getComponents(response);
         setAllComponents(filteredComponents);
@@ -54,7 +54,7 @@ const Page = ({id}: PageProps) => {
             {allComponents?.map((component, i) => {
                 return (
                     <>
-                        {component.type === 'button' && <Button key={i} />}
+                        {component.type === 'button' && <Button key={i} text={component.options.text} />}
                         {component.type === 'condition' && <Condition key={i} />}
                         {component.type === 'image' && <Image component={component} key={i} />}
                         {component.type === 'weather' && <Weather component={component} key={i} />}
