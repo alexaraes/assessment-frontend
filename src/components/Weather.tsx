@@ -1,10 +1,8 @@
 import { useWeatherFetch } from "../hooks/useFetch";
 import styled from 'styled-components';
 import { Component } from '../types/types';
-// import { useEffect } from 'react';
 import { devices } from '../styles/mediaQueries';
 import Cloudy from "../icons/Cloudy";
-import { useState } from "react";
 import Rain from "../icons/Rain";
 
 interface WeatherProps {
@@ -25,7 +23,7 @@ const getWeatherIcon = (conditions: string) => {
 const Weather = ({component}: WeatherProps) => {
     const {options} = component;
     const {lat, lon} = options;
-    const {response, isLoading} = useWeatherFetch(lat, lon);
+    const {response} = useWeatherFetch(lat, lon);
     const conditions = response?.conditionName;
     const location = response?.location;
     const temperature = response?.temperature;

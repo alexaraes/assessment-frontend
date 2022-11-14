@@ -4,7 +4,8 @@ import { Component, PageType } from "../types/types";
 import Weather from "./Weather";
 import Image from "./Image";
 import styled from "styled-components";
-import Rain from "../icons/Rain";
+import Condition from "./Condition";
+import Button from "./Button";
 
 interface PageProps {
     id: string;
@@ -29,7 +30,7 @@ const getComponents = (response?: PageType) => {
     response?.components.map((component, i) => {
         ids?.map((id, i) => {
             if (component.id === id) {
-                allComponents.push(component);
+                return allComponents.push(component);
             }
         });
     });
@@ -37,12 +38,15 @@ const getComponents = (response?: PageType) => {
 }
 
 const Page = ({id}: PageProps) => {
-    const {response, error, isLoading} = usePageFetch(id);
+    const {response} = usePageFetch(id);
     const [allComponents, setAllComponents] = useState<Component[]>();
 
     useEffect(() => {
         const filteredComponents = getComponents(response);
         setAllComponents(filteredComponents);
+        return () => {
+
+        }
     }, [response]);
     
     return (
@@ -50,8 +54,10 @@ const Page = ({id}: PageProps) => {
             {allComponents?.map((component, i) => {
                 return (
                     <>
-                        {component.type === 'image' && <Image component={component} />}
-                        {component.type === 'weather' && <Weather component={component} />}
+                        {component.type === 'button' && <Button key={i} />}
+                        {component.type === 'condition' && <Condition key={i} />}
+                        {component.type === 'image' && <Image component={component} key={i} />}
+                        {component.type === 'weather' && <Weather component={component} key={i} />}
                     </>
                 )
             })}

@@ -1,5 +1,5 @@
 const Condition = () => {
-    return <div></div>
+    return <div>Show me or hide me</div>
 }
 
 export default Condition;
