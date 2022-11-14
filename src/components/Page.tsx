@@ -42,8 +42,17 @@ const Page = ({id}: PageProps) => {
     const [allComponents, setAllComponents] = useState<Component[]>();
     const [shouldShow, setShouldShow] = useState<boolean>(true);
 
-    const showHide = () => {
-        setShouldShow(!shouldShow)
+    const showHide = (value: string | undefined) => {
+        if (value === 'hide') {
+            setShouldShow(false);
+        }
+        else if (value === 'show') {
+            setShouldShow(true);
+        }
+        else {
+            setShouldShow(!setShouldShow);
+        }
+        
     }
 
     useEffect(() => {
@@ -61,7 +70,7 @@ const Page = ({id}: PageProps) => {
                 console.log(component);
                 return (
                     <div key={i}>
-                        {component.type === 'button' && <Button showHide={showHide} text={component.options.text} />}
+                        {component.type === 'button' && <Button showHide={showHide} text={component.options.text} value={component.options.value} />}
                         {component.type === 'condition' && 
                             <Condition shouldShow={shouldShow}>
                                 {component.options.variable === 'show_weather' && <Weather component={component} />}

@@ -1,16 +1,18 @@
 import styled from "styled-components";
 import AddBox from "../icons/AddBox";
 import Clock from "../icons/Clock";
+import { devices } from '../styles/mediaQueries';
 
 interface ButtonProps {
     text?: string;
-    showHide: () => void;
+    showHide: (value: string | undefined) => void;
+    value?: string;
 }
 
 // there was no eye icons in the codebase, so I improvised with other icons for the purpose of the exercise
-const Button = ({ text, showHide }: ButtonProps) => {
+const Button = ({ text, showHide, value }: ButtonProps) => {
     return (
-        <StyledButton onClick={() => showHide()} >
+        <StyledButton onClick={() => showHide(value)} >
             <ButtonText>{text}</ButtonText>
             <Icon>
                 {text === 'Show' ? (
@@ -27,7 +29,6 @@ const StyledButton = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 500px;
     height: 200px;
     border: none;
     margin: 15px 0;
@@ -36,6 +37,15 @@ const StyledButton = styled.div`
     color: white;
     font-size: 32px;
     cursor: pointer;
+    @media ${devices.mobile} {
+        width: 350px;
+    }
+    @media ${devices.tablet} {
+        width: 500px;
+    }
+    @media ${devices.laptop} {
+        width: 500px;
+    }
 `;
 
 const ButtonText = styled.div`
