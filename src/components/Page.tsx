@@ -59,16 +59,16 @@ const Page = ({id}: PageProps) => {
         <Container>
             {allComponents?.map((component, i) => {
                 return (
-                    <>
-                        {component.type === 'button' && <Button key={i} showHide={showHide} text={component.options.text} />}
+                    <div>
+                        {component.type === 'button' && <Button showHide={showHide} text={component.options.text} />}
                         {component.type === 'condition' && 
-                            <Condition key={i} shouldShow={shouldShow}>
-                                <Weather component={component} key={i} />
+                            <Condition shouldShow={shouldShow}>
+                                <Weather component={component} />
                             </Condition>
                         }
-                        {component.type === 'image' && <Image component={component} key={i} />}
-                        {component.type === 'weather' && <Weather component={component} key={i} />}
-                    </>
+                        {component.type === 'image' && <Image component={component} />}
+                        {component.type === 'weather' && <Weather component={component} />}
+                    </div>
                 )
             })}
             

@@ -7,7 +7,7 @@ interface ConditionProps {
 
 const Condition = ({children, shouldShow}: ConditionProps) => {
     return <div>
-        {shouldShow && <div>hello {children}</div>}
+        {shouldShow && <div>{children}</div>}
     </div>
 }
 

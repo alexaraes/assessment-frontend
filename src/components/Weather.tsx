@@ -1,9 +1,12 @@
+import { useEffect } from "react";
 import { useWeatherFetch } from "../hooks/useFetch";
 import styled from 'styled-components';
 import { Component } from '../types/types';
 import { devices } from '../styles/mediaQueries';
 import Cloudy from "../icons/Cloudy";
 import Rain from "../icons/Rain";
+import { useState } from "react";
+import ClearDay from "../icons/ClearDay";
 
 interface WeatherProps {
     component: Component;
@@ -12,23 +15,36 @@ interface WeatherProps {
 const getWeatherIcon = (conditions: string) => {
     switch (conditions) {
         case 'cloudy':
-        case 'Cloudy':
             return <Cloudy />;
         case 'rain':
-        case 'Rain':
             return <Rain />;
+        case 'clear':
+            return <ClearDay />
     }
+}
+
+const defaultWeather = {
+    condition: 'cloudy',
+    conditionName: 'Cloudy',
+    location: 'Buffalo, NY',
+    temperature: 37,
+    upcomming: [
+        {day: 'Thu', condition: 'clear', conditionName: 'Clear'},
+        {day: 'Fri', condition: 'cloudy', conditionName: 'Cloudy'},
+        {day: 'Sat', condition: 'rain', conditionName: 'Rain'}
+    ]
 }
 
 const Weather = ({component}: WeatherProps) => {
     const {options} = component;
     const {lat, lon} = options;
     const {response} = useWeatherFetch(lat, lon);
-    const conditions = response?.conditionName;
-    const location = response?.location;
-    const temperature = response?.temperature;
-    const forecast = response?.upcomming;
-    console.warn(forecast);
+    const conditions = response?.condition || defaultWeather.condition;
+    const conditionName = response?.conditionName || defaultWeather.conditionName;
+    const location = response?.location || defaultWeather.location;
+    const temperature = response?.temperature || defaultWeather.temperature;
+    const forecast = response?.upcomming || defaultWeather.upcomming;
+    console.warn(response);
     
     return (
         <Container>
@@ -39,7 +55,7 @@ const Weather = ({component}: WeatherProps) => {
                 <IconContainer>{conditions && getWeatherIcon(conditions)}</IconContainer>
                 <TemperatureContainer>
                     <Temperature>{temperature}</Temperature>
-                    <SmallText>{conditions}</SmallText>
+                    <SmallText>{conditionName}</SmallText>
                 </TemperatureContainer>
             </CurrentWeatherContainer>
             <ForecastContainer>
