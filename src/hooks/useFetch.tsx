@@ -33,7 +33,7 @@ export function usePageFetch(id: string) {
 
 // wanted one function, but could not get typescript to be nice to the response type
 export function useWeatherFetch(lat: number | undefined, lon: number | undefined) {
-   const [response, setResponse] = useState<WeatherType>();
+   const [weatherResponse, setWeatherResponse] = useState<WeatherType>();
    const [error, setError] = useState<string>("");
    const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -41,7 +41,7 @@ export function useWeatherFetch(lat: number | undefined, lon: number | undefined
       const fetchData = async () => {
          axios.get(`${baseUrl}/integration/weather?lat=${lat}&lon=${lon}`)
             .then(function (res) {
-                setResponse(res.data.data);
+                setWeatherResponse(res.data.data);
             })
             .catch(function (error) {
                 setError(error);
@@ -54,5 +54,5 @@ export function useWeatherFetch(lat: number | undefined, lon: number | undefined
       fetchData();
    }, [lat, lon]);
 
-   return { response, error, isLoading };
+   return { weatherResponse, error, isLoading };
 }

@@ -23,6 +23,7 @@ const getWeatherIcon = (conditions: string) => {
     }
 }
 
+// set default weather values for page-two and page-three because the page api does not return lat/lon values
 const defaultWeather = {
     condition: 'cloudy',
     conditionName: 'Cloudy',
@@ -38,12 +39,12 @@ const defaultWeather = {
 const Weather = ({component}: WeatherProps) => {
     const {options} = component;
     const {lat, lon} = options;
-    const {response} = useWeatherFetch(lat, lon);
-    const conditions = response?.condition || defaultWeather.condition;
-    const conditionName = response?.conditionName || defaultWeather.conditionName;
-    const location = response?.location || defaultWeather.location;
-    const temperature = response?.temperature || defaultWeather.temperature;
-    const forecast = response?.upcomming || defaultWeather.upcomming;
+    const {weatherResponse} = useWeatherFetch(lat, lon);
+    const conditions = weatherResponse?.condition || defaultWeather.condition;
+    const conditionName = weatherResponse?.conditionName || defaultWeather.conditionName;
+    const location = weatherResponse?.location || defaultWeather.location;
+    const temperature = weatherResponse?.temperature || defaultWeather.temperature;
+    const forecast = weatherResponse?.upcomming || defaultWeather.upcomming;
     
     return (
         <Container>
