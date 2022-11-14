@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePageFetch } from "../hooks/useFetch";
 import { Component, PageType } from "../types/types";
 import Weather from "./Weather";
@@ -6,6 +6,17 @@ import Image from "./Image";
 
 interface PageProps {
     id: string;
+}
+
+const renderComponent = (componentType: string) => {
+    switch (componentType) {
+        case 'image':
+            return 'hello';
+        case 'weather':
+            return 'wow';
+        default:
+            return 'oops';
+    }
 }
 
 const getComponentType = (response?: PageType) => {
@@ -35,6 +46,7 @@ const getComponents = (response?: PageType) => {
 
 const Page = ({id}: PageProps) => {
     const {response, error, isLoading} = usePageFetch(id);
+    const [allComponents, setAllComponents] = useState<Component[]>();
     let lat, lon;
     if (response && response.components) {
         response.components.forEach((component) => {
@@ -46,13 +58,15 @@ const Page = ({id}: PageProps) => {
     }
 
     useEffect(() => {
-        const allComponents = getComponents(response);
-        console.warn(allComponents);
+        const filteredComponents = getComponents(response);
+        setAllComponents(filteredComponents);
     }, [response]);
     
-
     return (
         <div>
+            {allComponents?.map((component, i) => {
+                return <div key={i}>{renderComponent(component.type)}</div>
+            })}
             <Image/>
             {lat && lon && <Weather lat={lat} lon={lon} />}
         </div>
