@@ -40,6 +40,12 @@ const getComponents = (response?: PageType) => {
 const Page = ({id}: PageProps) => {
     const {response} = usePageFetch(id);
     const [allComponents, setAllComponents] = useState<Component[]>();
+    const [shouldShow, setShouldShow] = useState<boolean>(true);
+
+    const showHide = () => {
+        setShouldShow(!shouldShow)
+    }
+
     console.warn(allComponents);
     useEffect(() => {
         const filteredComponents = getComponents(response);
@@ -54,8 +60,12 @@ const Page = ({id}: PageProps) => {
             {allComponents?.map((component, i) => {
                 return (
                     <>
-                        {component.type === 'button' && <Button key={i} text={component.options.text} />}
-                        {component.type === 'condition' && <Condition key={i} />}
+                        {component.type === 'button' && <Button key={i} showHide={showHide} text={component.options.text} />}
+                        {component.type === 'condition' && 
+                            <Condition key={i} shouldShow={shouldShow}>
+                                <Weather component={component} key={i} />
+                            </Condition>
+                        }
                         {component.type === 'image' && <Image component={component} key={i} />}
                         {component.type === 'weather' && <Weather component={component} key={i} />}
                     </>
