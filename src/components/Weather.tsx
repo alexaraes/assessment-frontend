@@ -60,9 +60,9 @@ const Weather = ({component}: WeatherProps) => {
             <ForecastContainer>
                     {forecast?.map((day, i) => {
                         return (
-                            <DayContainer>
-                                <ForecastIcon key={i} >{getWeatherIcon(day.condition)}</ForecastIcon>
-                                <SmallText key={i} >{day.day}</SmallText>
+                            <DayContainer key={i} >
+                                <ForecastIcon>{getWeatherIcon(day.condition)}</ForecastIcon>
+                                <SmallText>{day.day}</SmallText>
                             </DayContainer>
                         )
                     })}
@@ -80,7 +80,7 @@ const Container = styled.div`
     border-radius: 15px;
     box-sizing: border-box;
     @media ${devices.mobile} {
-        width: 100%;
+        width: 350px;
     }
     @media ${devices.tablet} {
         width: 500px;
@@ -88,6 +88,7 @@ const Container = styled.div`
     @media ${devices.laptop} {
         width: 500px;
     }
+    border: 1px solid #AEAEAE;
 `;
 
 const LocationContainer = styled.div`

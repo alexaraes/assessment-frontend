@@ -20,7 +20,7 @@ const Container = styled.div`
     border-radius: 15px;
     height: 200px;
     @media ${devices.mobile} {
-        width: 100%;
+        width: 350px;
     }
     @media ${devices.tablet} {
         width: 500px;
@@ -34,7 +34,7 @@ const StyledImage = styled.img`
     height: 200px;
     border-radius: 15px;
     @media ${devices.mobile} {
-        width: 100%;
+        width: 350px;
     }
     @media ${devices.tablet} {
         width: 500px;

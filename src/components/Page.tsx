@@ -38,7 +38,7 @@ const getComponents = (response?: PageType) => {
 }
 
 const Page = ({id}: PageProps) => {
-    const {response} = usePageFetch(id);
+    const {response, isLoading} = usePageFetch(id);
     const [allComponents, setAllComponents] = useState<Component[]>();
     const [shouldShow, setShouldShow] = useState<boolean>(true);
 
@@ -56,13 +56,17 @@ const Page = ({id}: PageProps) => {
     
     return (
         <Container>
-            {allComponents?.map((component, i) => {
+            {isLoading && <div>LOADING...</div>}
+            {!isLoading && allComponents?.map((component, i) => {
+                console.log(component);
                 return (
-                    <div>
+                    <div key={i}>
                         {component.type === 'button' && <Button showHide={showHide} text={component.options.text} />}
                         {component.type === 'condition' && 
                             <Condition shouldShow={shouldShow}>
-                                <Weather component={component} />
+                                {component.options.variable === 'show_weather' && <Weather component={component} />}
+                                {component.options.variable === 'location' && <Image component={component} />}
+                                {component.options.variable === 'show_image' && <Image component={component} />}
                             </Condition>
                         }
                         {component.type === 'image' && <Image component={component} />}
