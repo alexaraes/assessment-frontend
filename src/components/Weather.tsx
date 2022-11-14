@@ -1,16 +1,27 @@
 import React from 'react';
 import { useWeatherFetch } from "../hooks/useFetch";
 import styled from 'styled-components';
+import { Component } from '../types/types';
+import { useEffect } from 'react';
 
 interface WeatherProps {
-    lat: string;
-    lon: string;
+    component: Component;
 }
 
-const Weather = ({lat, lon}: WeatherProps) => {
+const Weather = ({component}: WeatherProps) => {
+    console.warn(component);
+    const {options} = component;
+    const {lat, lon} = options;
     const {response, isLoading} = useWeatherFetch(lat, lon);
     const conditions = response?.conditionName;
     const location = response?.location;
+
+    // useEffect(() => {
+    //     if (lat && lon) {
+            
+    //     }
+    // })
+    
     return (
         <>
             {isLoading ? 

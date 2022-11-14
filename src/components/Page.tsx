@@ -8,17 +8,6 @@ interface PageProps {
     id: string;
 }
 
-const renderComponent = (componentType: string) => {
-    switch (componentType) {
-        case 'image':
-            return 'hello';
-        case 'weather':
-            return 'wow';
-        default:
-            return 'oops';
-    }
-}
-
 const getComponentType = (response?: PageType) => {
     const lists = response?.lists;
     // just get the component ids from list with id 0
@@ -47,15 +36,6 @@ const getComponents = (response?: PageType) => {
 const Page = ({id}: PageProps) => {
     const {response, error, isLoading} = usePageFetch(id);
     const [allComponents, setAllComponents] = useState<Component[]>();
-    let lat, lon;
-    if (response && response.components) {
-        response.components.forEach((component) => {
-            if (component.type === 'weather') {
-                lat = component.options.lat;
-                lon = component.options.lon;
-            }
-        })
-    }
 
     useEffect(() => {
         const filteredComponents = getComponents(response);
@@ -65,10 +45,14 @@ const Page = ({id}: PageProps) => {
     return (
         <div>
             {allComponents?.map((component, i) => {
-                return <div key={i}>{renderComponent(component.type)}</div>
+                return (
+                    <>
+                        {component.type === 'image' && <Image component={component} />}
+                        {component.type === 'weather' && <Weather component={component} />}
+                    </>
+                )
             })}
-            <Image/>
-            {lat && lon && <Weather lat={lat} lon={lon} />}
+            
         </div>
     );
 }

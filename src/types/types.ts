@@ -7,6 +7,8 @@ export interface Component {
         text?: string;
         value?: string;
         variable?: string;
+        src?: string;
+        alt?: string;
     };
 }
 
