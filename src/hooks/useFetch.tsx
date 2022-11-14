@@ -15,12 +15,9 @@ export function usePageFetch(id: string) {
       const fetchData = async () => {
          axios.get(`${baseUrl}/page/${id}`)
             .then(function (res) {
-                // handle success
-                console.log(res.data.data);
                 setResponse(res.data.data);
             })
             .catch(function (error) {
-                // handle error
                 setError(error);
             })
             .finally(function () {
@@ -44,12 +41,9 @@ export function useWeatherFetch(lat: string | '', lon: string | '') {
       const fetchData = async () => {
          axios.get(`${baseUrl}/integration/weather?lat=${lat}&lon=${lon}`)
             .then(function (res) {
-                // handle success
-                console.log(res.data.data);
                 setResponse(res.data.data);
             })
             .catch(function (error) {
-                // handle error
                 setError(error);
             })
             .finally(function () {
