@@ -46,17 +46,17 @@ const Page = ({id}: PageProps) => {
     }, [response]);
     
     return (
-        <div>
+        <Container>
             {allComponents?.map((component, i) => {
                 return (
-                    <Container>
+                    <>
                         {component.type === 'image' && <Image component={component} />}
                         {component.type === 'weather' && <Weather component={component} />}
-                    </Container>
+                    </>
                 )
             })}
             
-        </div>
+        </Container>
     );
 }
 
@@ -64,6 +64,9 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #DBDBDB;
+    height: 100vh;
+    padding: 15px;
 `;
 
 export default Page;

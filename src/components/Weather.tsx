@@ -14,8 +14,10 @@ interface WeatherProps {
 const getWeatherIcon = (conditions: string) => {
     switch (conditions) {
         case 'cloudy':
+        case 'Cloudy':
             return <Cloudy />;
         case 'rain':
+        case 'Rain':
             return <Rain />;
     }
 }
@@ -31,38 +33,28 @@ const Weather = ({component}: WeatherProps) => {
     console.warn(forecast);
     
     return (
-        <>
-            {isLoading ? 
-                (
-                    <Container>IS LOADING</Container>
-                ) 
-                : (
-                    <Container>
-                        <LocationContainer>
-                            <CityName>{location}</CityName>
-                        </LocationContainer>
-                        <CurrentWeatherContainer>
-                            <IconContainer>{conditions && getWeatherIcon(conditions)}</IconContainer>
-                            <TemperatureContainer>
-                                <Temperature>{temperature}</Temperature>
-                                <Conditions>{conditions}</Conditions>
-                            </TemperatureContainer>
-                        </CurrentWeatherContainer>
-                        <ForecastContainer>
-                                {forecast?.map((day, i) => {
-                                    return (
-                                        <DayContainer>
-                                        <IconContainer key={i} >{getWeatherIcon(day.condition)}</IconContainer>
-                                        <div key={i} >{day.day}</div>
-                                        </DayContainer>
-                                    )
-                                })}
-                            </ForecastContainer>
-                        
-                    </Container>
-                )
-            }
-        </>
+        <Container>
+            <LocationContainer>
+                <CityName>{location}</CityName>
+            </LocationContainer>
+            <CurrentWeatherContainer>
+                <IconContainer>{conditions && getWeatherIcon(conditions)}</IconContainer>
+                <TemperatureContainer>
+                    <Temperature>{temperature}</Temperature>
+                    <SmallText>{conditions}</SmallText>
+                </TemperatureContainer>
+            </CurrentWeatherContainer>
+            <ForecastContainer>
+                    {forecast?.map((day, i) => {
+                        return (
+                            <DayContainer>
+                                <ForecastIcon key={i} >{getWeatherIcon(day.condition)}</ForecastIcon>
+                                <SmallText key={i} >{day.day}</SmallText>
+                            </DayContainer>
+                        )
+                    })}
+                </ForecastContainer>
+        </Container>
     )
 }
 
@@ -70,14 +62,18 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding: 1.25rem;
+    margin: 15px 0 0 0;
+    background-color: white;
+    border-radius: 15px;
+    box-sizing: border-box;
     @media ${devices.mobile} {
-        width: 90%;
+        width: 100%;
     }
     @media ${devices.tablet} {
-        width: 60%;
+        width: 500px;
     }
     @media ${devices.laptop} {
-        width: 50%;
+        width: 500px;
     }
 `;
 
@@ -103,10 +99,10 @@ const TemperatureContainer = styled.div`
 `;
 
 const Temperature = styled.div`
-    font-size: 20px;
+    font-size: 30px;
 `;
 
-const Conditions = styled.div`
+const SmallText = styled.div`
     font-size: 12px;
 `;
 
@@ -114,8 +110,8 @@ const IconContainer = styled.div`
     > svg {
         display: block;
         margin: auto;
-        width: 50px;
-        height: 50px;
+        width: 75px;
+        height: 75px;
     }
 `;
 
@@ -124,6 +120,15 @@ const ForecastContainer = styled.div`
     flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
+`;
+
+const ForecastIcon = styled.div`
+    > svg {
+        display: block;
+        margin: auto;
+        width: 50px;
+        height: 50px;
+    }
 `;
 
 const DayContainer = styled.div`
