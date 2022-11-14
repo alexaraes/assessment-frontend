@@ -46,7 +46,6 @@ const Page = ({id}: PageProps) => {
         setShouldShow(!shouldShow)
     }
 
-    console.warn(allComponents);
     useEffect(() => {
         const filteredComponents = getComponents(response);
         setAllComponents(filteredComponents);

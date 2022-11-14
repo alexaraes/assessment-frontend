@@ -44,7 +44,6 @@ const Weather = ({component}: WeatherProps) => {
     const location = response?.location || defaultWeather.location;
     const temperature = response?.temperature || defaultWeather.temperature;
     const forecast = response?.upcomming || defaultWeather.upcomming;
-    console.warn(response);
     
     return (
         <Container>

@@ -8,7 +8,7 @@ interface ImageProps {
 
 const Image = ({component}: ImageProps) => {
     const { src, alt } = component.options;
-    console.warn(component);
+
     return <Container>
         <StyledImage  alt={alt} src={src} />
     </Container>
